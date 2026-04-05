@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Etutors Hub — An Ease for E-Learners</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy:   #0D1B4B;
+    --teal:   #0A8A8A;
+    --accent: #00C2C2;
+    --gold:   #F5C842;
+    --gold2:  #FFE580;
+    --white:  #FFFFFF;
+    --light:  #E8F4F8;
+    --muted:  #A0C4CC;
+    --text:   #1A1A2E;
+    --gray:   #64748B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+  /* ─── NAV ────────────────────────────── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(13,27,75,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,194,194,0.18);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 900;
+    color: var(--white); text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.88rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy) !important;
+    padding: 8px 22px; border-radius: 50px;
+    font-weight: 700 !important; transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,200,66,0.4) !important; color: var(--navy) !important; }
+
+  /* ─── HERO ───────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 5% 60px;
+  }
+
+  /* animated starfield bg */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(10,138,138,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 70%, rgba(0,194,194,0.10) 0%, transparent 60%);
+  }
+
+  /* floating dots */
+  .dots {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle, rgba(0,194,194,0.25) 1px, transparent 1px);
+    background-size: 38px 38px;
+    animation: driftDots 20s linear infinite;
+    opacity: 0.45;
+  }
+  @keyframes driftDots {
+    0%  { background-position: 0 0; }
+    100%{ background-position: 38px 38px; }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,194,194,0.12);
+    border: 1px solid rgba(0,194,194,0.35);
+    border-radius: 50px; padding: 6px 18px;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before { content: '★'; color: var(--gold); }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    font-weight: 900; line-height: 1.08;
+    margin-bottom: 0.4rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero h1 .highlight {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-style: italic;
+    color: var(--muted); margin-bottom: 1.4rem;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .hero p {
+    font-size: 1.05rem; line-height: 1.75;
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 2.2rem;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy); font-weight: 700; font-size: 0.95rem;
+    padding: 14px 34px; border-radius: 50px; border: none;
+    cursor: pointer; text-decoration: none; letter-spacing: 0.5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245,200,66,0.45); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white); font-weight: 700; font-size: 0.95rem;
+    padding: 13px 34px; border-radius: 50px;
+    border: 1.5px solid rgba(0,194,194,0.5);
+    cursor: pointer; text-decoration: none; letter-spacing: 0.5px;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,194,194,0.08); }
+
+  /* hero stats strip */
+  .hero-stats {
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+    margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid rgba(0,194,194,0.2);
+    animation: fadeUp 0.8s 0.55s ease both;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+  /* hero right visual */
+  .hero-visual {
+    position: absolute; right: 3%; top: 50%;
+    transform: translateY(-50%);
+    width: min(42vw, 440px);
+    animation: floatVis 6s ease-in-out infinite;
+    opacity: 0.92;
+  }
+  @keyframes floatVis {
+    0%,100% { transform: translateY(-50%) translateY(0); }
+    50%      { transform: translateY(-50%) translateY(-18px); }
+  }
+
+  /* ─── SECTION BASE ───────────────────── */
+  section { padding: 90px 5%; }
+  .section-light { background: var(--white); color: var(--text); }
+  .section-teal  { background: linear-gradient(135deg, #062525, #0A3A3A); }
+  .section-navy  { background: linear-gradient(180deg, #0D1B4B 0%, #091438 100%); }
+
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-light .section-title { color: var(--navy); }
+  .section-sub {
+    font-size: 1.05rem; color: var(--gray);
+    max-width: 560px; margin: 0 auto; line-height: 1.7;
+  }
+  .section-light .section-sub { color: var(--gray); }
+
+  /* gold underline accent */
+  .gold-line {
+    width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 2px; margin: 1rem auto 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── ABOUT ──────────────────────────── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .about-card {
+    background: linear-gradient(145deg, rgba(10,138,138,0.15), rgba(13,27,75,0.3));
+    border: 1px solid rgba(0,194,194,0.22);
+    border-radius: 24px; padding: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 130px; height: 130px;
+    background: radial-gradient(circle, rgba(245,200,66,0.18), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .tutor-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 900;
+    color: var(--white); margin-bottom: 0.3rem;
+  }
+  .tutor-title { color: var(--gold); font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 1.2rem; }
+
+  .credential-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid rgba(0,194,194,0.12);
+  }
+  .credential-row:last-child { border-bottom: none; }
+  .cred-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,194,194,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .cred-text { font-size: 0.88rem; color: rgba(255,255,255,0.82); line-height: 1.4; }
+  .cred-text strong { color: var(--accent); }
+
+  .about-text p {
+    font-size: 1.05rem; line-height: 1.85;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.2rem;
+  }
+
+  .trust-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  .pill {
+    background: rgba(0,194,194,0.12);
+    border: 1px solid rgba(0,194,194,0.3);
+    border-radius: 50px; padding: 6px 16px;
+    font-size: 0.8rem; color: var(--accent); font-weight: 700;
+  }
+
+  /* ─── SUBJECTS ───────────────────────── */
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+
+  .subject-card {
+    background: var(--navy);
+    border: 1px solid rgba(0,194,194,0.18);
+    border-radius: 20px; padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .subject-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--accent));
+    transform: scaleX(0); transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .subject-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+  .subject-card:hover::after { transform: scaleX(1); }
+
+  .subject-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .subject-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .subject-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .subject-badge {
+    display: inline-block; margin-top: 1rem;
+    background: rgba(245,200,66,0.12);
+    border: 1px solid rgba(245,200,66,0.3);
+    border-radius: 50px; padding: 4px 12px;
+    font-size: 0.75rem; color: var(--gold); font-weight: 700;
+  }
+  .subject-star { color: var(--gold); font-size: 0.8rem; margin-bottom: 0.3rem; }
+
+  /* ─── HOW IT WORKS ───────────────────── */
+  .steps-row {
+    display: flex; gap: 0; max-width: 900px; margin: 0 auto;
+    position: relative;
+  }
+  .steps-row::before {
+    content: '';
+    position: absolute; top: 36px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--accent), var(--gold));
+    z-index: 0;
+  }
+  .step {
+    flex: 1; text-align: center; padding: 0 1rem; position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy), #0A3A3A);
+    border: 2.5px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--gold);
+    box-shadow: 0 0 0 6px rgba(10,138,138,0.12);
+  }
+  .step h3 { font-size: 1rem; color: var(--white); margin-bottom: 0.5rem; font-weight: 700; }
+  .step p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── FEE ────────────────────────────── */
+  .fee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; max-width: 1050px; margin: 0 auto;
+  }
+
+  .fee-card {
+    background: var(--white);
+    border-radius: 20px; padding: 2rem;
+    text-align: center; position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  }
+  .fee-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+  .fee-card.featured {
+    border-color: var(--teal);
+    background: linear-gradient(145deg, #f0fdfd, var(--white));
+  }
+  .featured-tag {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--teal), var(--accent));
+    color: var(--white); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 16px; border-radius: 50px;
+    white-space: nowrap;
+  }
+  .fee-grade {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .fee-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 900;
+    color: var(--navy); line-height: 1;
+  }
+  .fee-currency { font-size: 1rem; vertical-align: top; padding-top: 8px; display: inline-block; }
+  .fee-period { font-size: 0.82rem; color: var(--gray); margin-top: 4px; }
+  .fee-detail { font-size: 0.85rem; color: var(--gray); margin-top: 1rem; line-height: 1.6; }
+  .fee-intl {
+    margin-top: 0.8rem; font-size: 0.8rem;
+    background: rgba(10,138,138,0.08);
+    border-radius: 8px; padding: 6px 10px; color: var(--teal); font-weight: 700;
+  }
+
+  /* ─── TESTIMONIALS ───────────────────── */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; max-width: 1050px; margin: 0 auto;
+  }
+  .testi-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,194,194,0.18);
+    border-radius: 20px; padding: 2rem;
+  }
+  .testi-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
+  .testi-quote { font-size: 0.95rem; line-height: 1.75; color: rgba(255,255,255,0.82); font-style: italic; margin-bottom: 1.2rem; }
+  .testi-author { font-weight: 700; color: var(--accent); font-size: 0.88rem; }
+  .testi-detail { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+  /* ─── TIMELINE ───────────────────────── */
+  .timeline { max-width: 700px; margin: 0 auto; position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(180deg, var(--teal), var(--accent), var(--gold));
+  }
+  .tl-item { position: relative; padding: 0 0 2.5rem 2.5rem; }
+  .tl-dot {
+    position: absolute; left: -9px; top: 4px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--gold); border: 3px solid var(--navy);
+    box-shadow: 0 0 0 3px rgba(245,200,66,0.3);
+  }
+  .tl-year { font-size: 0.8rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; margin-bottom: 0.2rem; }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.3rem; }
+  .tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ─── REGISTER FORM ──────────────────── */
+  .register-wrap {
+    max-width: 720px; margin: 0 auto;
+    background: var(--white);
+    border-radius: 28px; padding: 3.5rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+  }
+  .register-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--navy); margin-bottom: 0.4rem;
+  }
+  .register-wrap p { color: var(--gray); margin-bottom: 2rem; font-size: 0.95rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--navy); letter-spacing: 0.5px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid #d1dde8;
+    border-radius: 10px; padding: 12px 16px;
+    font-family: 'Lato', sans-serif; font-size: 0.92rem;
+    color: var(--text); background: #f8fbfd;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(10,138,138,0.12);
+    background: var(--white);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--navy), #0A3A3A);
+    color: var(--white); font-family: 'Lato', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+    padding: 15px; border: none; border-radius: 12px;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(13,27,75,0.4); }
+  .form-note { text-align: center; font-size: 0.78rem; color: var(--gray); margin-top: 1rem; }
+
+  /* success message */
+  .success-msg {
+    display: none; text-align: center; padding: 2rem;
+    background: linear-gradient(135deg, #e6faf5, #f0fdfd);
+    border-radius: 16px; border: 1px solid var(--teal);
+    color: var(--navy);
+  }
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--teal); margin-bottom: 0.5rem; }
+
+  /* ─── CONTACT ────────────────────────── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; max-width: 900px; margin: 0 auto; align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 1.4rem;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(0,194,194,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+    border: 1px solid rgba(0,194,194,0.25);
+  }
+  .contact-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .contact-val { font-size: 0.95rem; color: var(--white); margin-top: 2px; }
+  .contact-val a { color: var(--accent); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25D366; color: var(--white);
+    font-weight: 700; padding: 13px 28px; border-radius: 50px;
+    text-decoration: none; font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 1rem;
+  }
+  .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
+
+  /* ─── FOOTER ─────────────────────────── */
+  footer {
+    background: #060e28;
+    padding: 3rem 5% 2rem;
+    border-top: 1px solid rgba(0,194,194,0.12);
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { color: var(--muted); font-style: italic; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-copy { font-size: 0.78rem; color: rgba(160,196,204,0.5); }
+
+  /* ─── RESPONSIVE ─────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4%; }
+    .nav-links { display: none; }
+    .hero { padding: 90px 5% 50px; }
+    .hero-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .steps-row { flex-direction: column; gap: 2rem; }
+    .steps-row::before { display: none; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a href="#" class="nav-logo"><span>E</span>tutors Hub</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#fees">Fees</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#register" class="nav-cta">Enroll Now</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="home">
+  <div class="dots"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Online Tutoring Academy · Est. 2025</div>
+
+    <h1>Learn Smarter with<br/><span class="highlight">Etutors Hub</span></h1>
+    <p class="hero-tagline">An Ease for E-Learners</p>
+
+    <p>Quality one-on-one online tutoring from <strong>Playgroup to Grade 12</strong> — specialising in Physics, Chemistry, Biology and Mathematics. Taught by an experienced tutor based in Riyadh, Saudi Arabia, with over <strong>10 years</strong> of teaching experience.</p>
+
+    <div class="hero-btns">
+      <a href="#register" class="btn-primary">📝 Register for Free Trial</a>
+      <a href="#subjects" class="btn-secondary">Explore Subjects →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">PG–12</div>
+        <div class="stat-label">All Grades</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">A+</div>
+        <div class="stat-label">BSc Zoology</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">🌍</div>
+        <div class="stat-label">Intl Students</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero SVG Visual -->
+  <div class="hero-visual">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hg1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#0A8A8A" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#0D1B4B" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="200" cy="200" r="195" fill="url(#hg1)" stroke="rgba(0,194,194,0.25)" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(245,200,66,0.15)" stroke-width="1" stroke-dasharray="10 6"/>
+      <!-- Book -->
+      <path d="M120,120 L120,260 L200,250 L200,120 Z" fill="none" stroke="#00C2C2" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M280,120 L280,260 L200,250 L200,120 Z" fill="none" stroke="#00C2C2" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="200" y1="120" x2="200" y2="250" stroke="#F5C842" stroke-width="3"/>
+      <!-- Page lines -->
+      <line x1="135" y1="155" x2="188" y2="153" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="135" y1="172" x2="188" y2="170" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      <line x1="135" y1="189" x2="188" y2="187" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+      <line x1="135" y1="206" x2="175" y2="204" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      <line x1="265" y1="155" x2="213" y2="153" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <line x1="265" y1="172" x2="213" y2="170" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      <line x1="265" y1="189" x2="213" y2="187" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+      <line x1="265" y1="206" x2="225" y2="204" stroke="#00C2C2" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      <!-- Star -->
+      <polygon points="200,95 205,110 220,110 208,119 213,134 200,125 187,134 192,119 180,110 195,110" fill="#F5C842"/>
+      <!-- Floating atoms -->
+      <circle cx="320" cy="130" r="6" fill="#F5C842" opacity="0.7"/>
+      <circle cx="340" cy="160" r="4" fill="#00C2C2" opacity="0.6"/>
+      <circle cx="75"  cy="150" r="5" fill="#00C2C2" opacity="0.55"/>
+      <circle cx="60"  cy="200" r="3" fill="#F5C842" opacity="0.5"/>
+      <circle cx="330" cy="280" r="4" fill="#F5C842" opacity="0.45"/>
+      <!-- Bottom curve -->
+      <path d="M120,260 Q200,280 280,260" fill="none" stroke="#F5C842" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Formula text -->
+      <text x="108" y="310" font-family="Georgia,serif" font-size="13" fill="rgba(0,194,194,0.7)">F = ma</text>
+      <text x="183" y="320" font-family="Georgia,serif" font-size="13" fill="rgba(245,200,66,0.7)">E = mc²</text>
+      <text x="258" y="308" font-family="Georgia,serif" font-size="13" fill="rgba(0,194,194,0.7)">v = u+at</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="section-navy" id="about">
+  <div class="section-header">
+    <div class="section-eyebrow">Meet Your Tutor</div>
+    <h2 class="section-title">Passionate. Qualified. Experienced.</h2>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="tutor-name">Maria Shabbir</div>
+      <div class="tutor-title">📍 RIYADH, SAUDI ARABIA · FOUNDER, ETUTORS HUB</div>
+
+      <div class="credential-row">
+        <div class="cred-icon">🎓</div>
+        <div class="cred-text"><strong>BSc Zoology — Grade A+</strong><br/>Government College University Faisalabad (2019)</div>
+      </div>
+      <div class="credential-row">
+        <div class="cred-icon">📅</div>
+        <div class="cred-text"><strong>10+ Years</strong> of teaching experience<br/>Started tutoring since 2014</div>
+      </div>
+      <div class="credential-row">
+        <div class="cred-icon">🌍</div>
+        <div class="cred-text"><strong>National & International Students</strong><br/>Taught students from Pakistan, KSA & beyond</div>
+      </div>
+      <div class="credential-row">
+        <div class="cred-icon">✍️</div>
+        <div class="cred-text"><strong>Professional Content Writer</strong><br/>5+ years — UK, Australia, Pakistan clients</div>
+      </div>
+      <div class="credential-row">
+        <div class="cred-icon">🔬</div>
+        <div class="cred-text"><strong>Science Specialist</strong><br/>Physics · Chemistry · Biology · Maths</div>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p>I am Maria Shabbir — a qualified science graduate, online tutor, and professional content writer based in Riyadh, Saudi Arabia. I founded Etutors Hub with one simple goal: to make quality education accessible and easy for every learner, wherever they are in the world.</p>
+
+      <p>My teaching journey began in 2014 when I found my first student in Grade 4. Since then, I have taught hundreds of students from Playgroup to Grade 12, in subjects ranging from basic English to advanced Physics and Mathematics. From 2020 to 2024, I worked as a professional online tutor at <strong style="color:var(--accent)">Learn 2 Lead Online Academy</strong>, where I gained experience teaching international students including those from Saudi Arabia.</p>
+
+      <p>With a <strong style="color:var(--gold)">BSc Zoology degree (Grade A+)</strong> from Government College University Faisalabad, I bring a deep science foundation to my teaching. My students don't just memorise — they understand.</p>
+
+      <div class="trust-pills">
+        <span class="pill">BSc Zoology A+</span>
+        <span class="pill">10+ Years Teaching</span>
+        <span class="pill">Science Specialist</span>
+        <span class="pill">International Experience</span>
+        <span class="pill">Riyadh Based</span>
+        <span class="pill">Urdu & English</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SUBJECTS ══════════ -->
+<section class="section-light" id="subjects">
+  <div class="section-header">
+    <div class="section-eyebrow" style="color:var(--teal)">What We Teach</div>
+    <h2 class="section-title">Subjects Offered</h2>
+    <p class="section-sub">All subjects from Playgroup to Grade 12. Our speciality lies in Science — that is where we shine the most.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="subjects-grid">
+    <div class="subject-card">
+      <div class="subject-star">⭐ SPECIALITY</div>
+      <div class="subject-icon">⚛️</div>
+      <h3>Physics</h3>
+      <p>Mechanics, waves, electricity, magnetism, optics, and modern physics. Conceptual clarity with problem-solving practice.</p>
+      <span class="subject-badge">Grade 6 – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-star">⭐ SPECIALITY</div>
+      <div class="subject-icon">🧪</div>
+      <h3>Chemistry</h3>
+      <p>From basic atomic structure to organic chemistry. Equations, reactions, and real-world applications explained clearly.</p>
+      <span class="subject-badge">Grade 6 – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-star">⭐ SPECIALITY</div>
+      <div class="subject-icon">🧬</div>
+      <h3>Biology</h3>
+      <p>Cell biology, genetics, human systems, ecology and more. Taught with a passion rooted in a BSc Zoology degree.</p>
+      <span class="subject-badge">Grade 6 – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-star">⭐ SPECIALITY</div>
+      <div class="subject-icon">📐</div>
+      <h3>Mathematics</h3>
+      <p>From basic numeracy to FSc-level calculus, matrices, and vectors. Step-by-step methods with lots of practice.</p>
+      <span class="subject-badge">Grade 1 – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-icon">📖</div>
+      <h3>English Language</h3>
+      <p>Reading, writing, grammar, comprehension, and essay skills for all levels including O-Level and FSc.</p>
+      <span class="subject-badge">Playgroup – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-icon">🖥️</div>
+      <h3>Computer Science</h3>
+      <p>Algorithms, programming basics, and digital literacy for secondary students in an engaging online format.</p>
+      <span class="subject-badge">Grade 6 – 12</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-icon">📝</div>
+      <h3>General Science</h3>
+      <p>Combined science for younger students — covering basic physics, chemistry, and biology concepts together.</p>
+      <span class="subject-badge">Grade 1 – 8</span>
+    </div>
+
+    <div class="subject-card">
+      <div class="subject-icon">🌙</div>
+      <h3>Islamiyat & Urdu</h3>
+      <p>Core subjects for Pakistani curriculum students. Taught with care and cultural understanding.</p>
+      <span class="subject-badge">Grade 1 – 12</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section class="section-teal" id="how">
+  <div class="section-header">
+    <div class="section-eyebrow">Simple Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub" style="color:var(--muted)">Getting started with Etutors Hub takes less than 5 minutes.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="steps-row">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Fill the Form</h3>
+      <p>Complete the registration form below with your child's grade, subject, and preferred timing.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Free Trial Class</h3>
+      <p>Attend a 100% free 30-minute trial class via Zoom or Google Meet. No payment needed upfront.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Confirm & Begin</h3>
+      <p>If you are happy, confirm your slot, pay the monthly fee, and start learning the very next day!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FEE STRUCTURE ══════════ -->
+<section class="section-light" id="fees">
+  <div class="section-header">
+    <div class="section-eyebrow" style="color:var(--teal)">Transparent Pricing</div>
+    <h2 class="section-title">Fee Structure</h2>
+    <p class="section-sub">Affordable monthly packages for every grade. International students are charged in USD. <strong style="color:var(--teal)">First trial class is always FREE.</strong></p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="fee-grid">
+    <div class="fee-card">
+      <div class="fee-grade">Playgroup – Grade 2</div>
+      <div class="fee-price"><span class="fee-currency">PKR</span> 2,500</div>
+      <div class="fee-period">per month</div>
+      <div class="fee-detail">30-min sessions · 5 days/week<br/>English · Urdu · Maths · GK</div>
+      <div class="fee-intl">International: $25/month</div>
+    </div>
+
+    <div class="fee-card">
+      <div class="fee-grade">Grade 3 – Grade 5</div>
+      <div class="fee-price"><span class="fee-currency">PKR</span> 3,500</div>
+      <div class="fee-period">per month</div>
+      <div class="fee-detail">40-min sessions · 5 days/week<br/>All primary subjects</div>
+      <div class="fee-intl">International: $38/month</div>
+    </div>
+
+    <div class="fee-card">
+      <div class="fee-grade">Grade 6 – Grade 8</div>
+      <div class="fee-price"><span class="fee-currency">PKR</span> 4,500</div>
+      <div class="fee-period">per month</div>
+      <div class="fee-detail">45-min sessions · 5 days/week<br/>Science subjects introduced</div>
+      <div class="fee-intl">International: $50/month</div>
+    </div>
+
+    <div class="fee-card featured">
+      <span class="featured-tag">Most Popular</span>
+      <div class="fee-grade">Grade 9 – Grade 10</div>
+      <div class="fee-price"><span class="fee-currency">PKR</span> 6,000</div>
+      <div class="fee-period">per month</div>
+      <div class="fee-detail">60-min sessions · 5 days/week<br/>Matric / O-Level preparation</div>
+      <div class="fee-intl">International: $70/month</div>
+    </div>
+
+    <div class="fee-card">
+      <div class="fee-grade">Grade 11 – Grade 12</div>
+      <div class="fee-price"><span class="fee-currency">PKR</span> 8,000</div>
+      <div class="fee-period">per month</div>
+      <div class="fee-detail">60-min sessions · 5 days/week<br/>FSc / A-Level · University entry prep</div>
+      <div class="fee-intl">International: $100/month</div>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:2.5rem;font-size:0.88rem;color:var(--gray)">
+    💡 <strong>PKR 500 one-time registration fee</strong> applies. Introductory 10% discount for first students. Payment accepted via EasyPaisa, JazzCash, PayPal & Wise.
+  </p>
+</section>
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section class="section-navy" id="testimonials">
+  <div class="section-header">
+    <div class="section-eyebrow">Student Stories</div>
+    <h2 class="section-title">What Parents Say</h2>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Maria Ma'am explains every concept so patiently. My daughter used to fear Maths — now she actually enjoys it. The online format works perfectly for us."</p>
+      <div class="testi-author">Parent of Grade 8 Student</div>
+      <div class="testi-detail">Faisalabad, Pakistan</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"We found Etutors Hub when looking for a Physics tutor for our son in Grade 11. The PPT slides and organised lessons make a big difference. Highly recommended!"</p>
+      <div class="testi-author">Parent of Grade 11 Student</div>
+      <div class="testi-detail">Riyadh, Saudi Arabia</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Very professional and dedicated tutor. My child improved significantly in Science within just one month. The free trial class convinced us instantly."</p>
+      <div class="testi-author">Parent of Grade 9 Student</div>
+      <div class="testi-detail">Karachi, Pakistan</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ JOURNEY ══════════ -->
+<section class="section-teal" id="journey">
+  <div class="section-header">
+    <div class="section-eyebrow">My Journey</div>
+    <h2 class="section-title">10 Years of Teaching</h2>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2014</div>
+      <div class="tl-title">First Student — Grade 4</div>
+      <div class="tl-desc">Started tutoring during my first semester of university. Found my very first student — a Grade 4 girl named Abeeha. This sparked a lifelong passion for teaching.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2019</div>
+      <div class="tl-title">BSc Zoology — Grade A+</div>
+      <div class="tl-desc">Graduated with First Class Honours from Government College University Faisalabad, majoring in Zoology and Biological Sciences.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2020</div>
+      <div class="tl-title">Moved Fully Online</div>
+      <div class="tl-desc">Transitioned to 100% online teaching. Joined Learn 2 Lead Online Academy as a professional online tutor, teaching national and international students via Zoom.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2020–2025</div>
+      <div class="tl-title">Professional Content Writing</div>
+      <div class="tl-desc">Worked as a professional content writer and academic writer for clients in the UK, Australia, and Pakistan — developing strong research and communication skills.</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <div class="tl-title">Founded Etutors Hub 🎉</div>
+      <div class="tl-desc">Launched my own independent online tutoring academy from Riyadh, Saudi Arabia — with the mission to make quality education an ease for every e-learner worldwide.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ REGISTER ══════════ -->
+<section class="section-navy" id="register">
+  <div class="section-header">
+    <div class="section-eyebrow">Enroll Today</div>
+    <h2 class="section-title">Register Your Child</h2>
+    <p class="section-sub" style="color:var(--muted)">Fill in the form below and we will contact you within 24 hours to schedule your FREE trial class.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="register-wrap">
+    <h2>Student Registration Form</h2>
+    <p>First trial class is completely free — no payment required to get started.</p>
+
+    <div id="regForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Student Full Name *</label>
+          <input type="text" id="studentName" placeholder="e.g. Sara Ahmed" required/>
+        </div>
+        <div class="form-group">
+          <label>Parent / Guardian Name *</label>
+          <input type="text" id="parentName" placeholder="e.g. Ahmed Khan" required/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="phone" placeholder="+92 300 1234567" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="email@example.com"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Student Grade *</label>
+          <select id="grade" required>
+            <option value="">Select Grade</option>
+            <option>Playgroup / KG</option>
+            <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option>
+            <option>Grade 4</option><option>Grade 5</option><option>Grade 6</option>
+            <option>Grade 7</option><option>Grade 8</option><option>Grade 9</option>
+            <option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Subject(s) Needed *</label>
+          <select id="subject" required>
+            <option value="">Select Subject</option>
+            <option>Physics</option><option>Chemistry</option><option>Biology</option>
+            <option>Mathematics</option><option>English</option><option>Computer Science</option>
+            <option>General Science</option><option>Multiple Subjects</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Class Time</label>
+          <select id="timing">
+            <option value="">Select Timing</option>
+            <option>Morning (8–11 AM)</option>
+            <option>Afternoon (12–3 PM)</option>
+            <option>Evening (4–7 PM)</option>
+            <option>Night (8–10 PM)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Country / Location</label>
+          <input type="text" id="country" placeholder="e.g. Saudi Arabia, Pakistan"/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Any Message or Special Requirement?</label>
+        <textarea id="message" placeholder="e.g. My child needs help specifically with vectors in Physics..."></textarea>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">📝 Submit Registration — Free Trial</button>
+      <p class="form-note">🔒 Your information is private and will only be used to contact you about your child's tutoring.</p>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <h3>🎉 Registration Received!</h3>
+      <p>Thank you for registering with <strong>Etutors Hub</strong>.<br/>
+      We will contact you on WhatsApp within <strong>24 hours</strong> to schedule your <strong>FREE trial class</strong>.<br/><br/>
+      <em>— Maria Shabbir, Etutors Hub</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="section-teal" id="contact">
+  <div class="section-header">
+    <div class="section-eyebrow">Get in Touch</div>
+    <h2 class="section-title">Contact Us</h2>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>We'd love to hear from you</h3>
+
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-val"><a href="https://wa.me/966582091833">+966 58 2091833</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val"><a href="mailto:mshabbirjaral96@gmail.com">mshabbirjaral96@gmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-val">Riyadh, Saudi Arabia<br/><span style="font-size:0.82rem;color:var(--muted)">Teaching students worldwide online</span></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📸</div>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-val"><a href="#">@EtutorsHub</a></div>
+        </div>
+      </div>
+
+      <a href="https://wa.me/966582091833" class="whatsapp-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+
+    <div>
+      <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(0,194,194,0.2);border-radius:20px;padding:2rem;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.2rem;">Class Schedule</h3>
+        <div style="display:grid;gap:0.6rem;">
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,194,194,0.12);">
+            <span style="color:var(--muted);">Teaching Days</span>
+            <span style="color:var(--white);font-weight:700;">Sun – Thu</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,194,194,0.12);">
+            <span style="color:var(--muted);">Session Duration</span>
+            <span style="color:var(--white);font-weight:700;">30 – 75 mins</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,194,194,0.12);">
+            <span style="color:var(--muted);">Platform</span>
+            <span style="color:var(--white);font-weight:700;">Zoom / Google Meet</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,194,194,0.12);">
+            <span style="color:var(--muted);">Trial Class</span>
+            <span style="color:var(--gold);font-weight:700;">FREE 🎉</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px 0;">
+            <span style="color:var(--muted);">Payment</span>
+            <span style="color:var(--white);font-weight:700;">EasyPaisa · PayPal · Wise</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-logo"><span>E</span>tutors Hub</div>
+  <div class="footer-tagline">An Ease for E-Learners</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#subjects">Subjects</a>
+    <a href="#fees">Fees</a>
+    <a href="#register">Register</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Etutors Hub · Founded by Maria Shabbir · Riyadh, Saudi Arabia · All rights reserved.</div>
+</footer>
+
+<script>
+  // smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--gold)' : '';
+    });
+  });
+
+  // form submit
+  function submitForm() {
+    const name = document.getElementById('studentName').value.trim();
+    const parent = document.getElementById('parentName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const grade = document.getElementById('grade').value;
+    const subject = document.getElementById('subject').value;
+
+    if (!name || !parent || !phone || !grade || !subject) {
+      alert('Please fill in all required fields marked with *');
+      return;
+    }
+
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+
+    // scroll to success
+    document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // animate on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.subject-card, .fee-card, .testi-card, .tl-item, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
